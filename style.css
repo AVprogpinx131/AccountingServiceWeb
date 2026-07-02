@@ -22,6 +22,9 @@ header {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
  
 .container {
@@ -29,25 +32,44 @@ header {
     top: 0;
     width: 100%;
     background-color: #062A60;
-    z-index: 1;
+    z-index: 10;
 }
-  
+
 .nav-container {
     display: flex;
-    justify-content: start;
-
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5em;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1em clamp(1.25rem, 4vw, 3rem);
 }
- 
+
+.logo-link {
+    display: inline-flex;
+    flex-shrink: 0;
+    border-radius: 15px;
+}
+
 .logo {
-    margin-left: 2em;
+    display: block;
 }
 
-.nav-list, .type {
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
     list-style-type: none;
     display: flex;
-    padding: 1em 3em 1em 5em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    align-items: center;
+    gap: clamp(1.25rem, 2.4vw, 2.75rem);
+}
+
+.type {
+    position: relative;
+    list-style-type: none;
 }
 
 a {
@@ -55,7 +77,14 @@ a {
     color: white;
     font-weight: 700;
     font-size: .9rem;
-   
+
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #2CD1C7;
+    outline-offset: 4px;
+    border-radius: 2px;
 }
 
 .my-type {
@@ -63,50 +92,91 @@ a {
     padding-bottom: .7em;
 }
 .no-border {
+    display: inline-flex;
+    align-items: center;
+    gap: .45em;
     border-bottom: none;
 }
 
-.border:hover {
-    border-bottom: 2px solid #2CD1C7;
-    padding-bottom: .7em;
-}     
-
-.my-border:hover {
+.border:hover,
+.border:focus-visible {
     border-bottom: 2px solid #2CD1C7;
     padding-bottom: .7em;
 }
 
-/* Teenuse alapealkirjad */
+.my-border:hover,
+.my-border:focus-visible {
+    border-bottom: 2px solid #2CD1C7;
+    padding-bottom: .7em;
+}
 
-.sub-menu {
+/* Teenuste alammenüü */
+
+.chevron {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform .25s ease;
+}
+
+.submenu-toggle {
     display: none;
 }
 
+.has-submenu {
+    padding-top: .6em;
+    margin-top: -.6em;
+}
 
-.nav-container .nav-list .type:hover .sub-menu {
-    display: block;
+.sub-menu {
     position: absolute;
-    margin-left: -.6em;
-    margin-top: 2em;
+    top: 100%;
+    left: 0;
+    min-width: 230px;
+    padding-top: .8em;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
 }
 
- .nav-container .nav-list .type:hover .sub-menu ul {
-    padding: 15px;
-    background: rgb(29, 77, 167);
+.has-submenu:hover .sub-menu,
+.has-submenu:focus-within .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.has-submenu:hover .chevron,
+.has-submenu:focus-within .chevron {
+    transform: rotate(225deg);
+}
+
+.sub-menu ul {
     list-style: none;
+    background: #12377A;
+    border-radius: 10px;
+    padding: .5em;
+    box-shadow: 0 16px 32px rgba(3, 13, 33, 0.35);
 }
 
- .nav-container .nav-list .type:hover .sub-menu ul li {
-    padding-bottom: 20px;
-    padding-top: 10px;
+.sub-menu ul li a {
+    display: block;
+    padding: .85em 1.1em;
+    border-radius: 6px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
- .nav-container .nav-list .type:hover .sub-menu ul li a:hover {
+.sub-menu ul li a:hover,
+.sub-menu ul li a:focus-visible {
+    background-color: #2f5cc9;
     border-bottom: none;
-    background-color: rgb(55, 120, 240);
-    padding-top: 10px;
-    padding-bottom: 10px;
-}   
+    outline: none;
+}
 
 
 /* Tekst avalehel */
@@ -114,8 +184,10 @@ a {
 
 .home-page-text {
     display: flex;
-    margin: 9em 0 0 9em;
+    margin-top: 9em;
+    margin-left: clamp(1.5em, 7vw, 9em);
     padding-top: 8em;
+    padding-right: clamp(1em, 4vw, 3em);
     color: white;
 }
 
@@ -389,15 +461,31 @@ input[type=submit]:hover {
 /* Telefoni versioon */
 
 .burger div {
-    width: 30px;
+    width: 26px;
     height: 3px;
     background-color: white;
-    margin: 6px;
     transition: all 0.3s ease;
+    transform-origin: center;
 }
 
 .burger {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: .5em;
+    margin-right: -.5em;
+    cursor: pointer;
+}
+
+/* Table pricing lists scroll horizontally instead of losing content */
+
+.table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 1635px){
@@ -473,6 +561,127 @@ input[type=submit]:hover {
 }
 
 
+/* Navigatsioon telefonis/tahvelarvutis: menüü ei tohi kunagi ekraanilt üle minna */
+
+@media (max-width: 900px) {
+    .nav-list {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(84vw, 340px);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: #062A60;
+        box-shadow: -12px 0 40px rgba(3, 13, 33, 0.35);
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
+        padding: 6.5em 2.25em 2em;
+        overflow-y: auto;
+    }
+
+    .nav-list > li {
+        padding: 1.05em 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        opacity: 0;
+    }
+
+    .nav-list > li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-list a {
+        font-size: 1.05rem;
+    }
+
+    .my-type,
+    .border,
+    .my-border {
+        border-bottom: none;
+        margin: 0;
+        padding-bottom: 0;
+    }
+
+    .border:hover,
+    .border:focus-visible,
+    .my-border:hover,
+    .my-border:focus-visible {
+        border-bottom: none;
+        padding-bottom: 0;
+        opacity: .75;
+    }
+
+    .has-submenu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-top: 1.05em;
+        margin-top: 0;
+    }
+
+    .no-border .chevron {
+        display: none;
+    }
+
+    .submenu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4em;
+        height: 2.4em;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    .submenu-toggle .chevron {
+        transition: transform .25s ease;
+    }
+
+    .has-submenu.submenu-open .submenu-toggle .chevron {
+        transform: rotate(225deg);
+    }
+
+    .sub-menu {
+        position: static;
+        width: 100%;
+        min-width: 0;
+        padding-top: 0;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows .3s ease;
+    }
+
+    .has-submenu.submenu-open .sub-menu {
+        grid-template-rows: 1fr;
+    }
+
+    .sub-menu ul {
+        overflow: hidden;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        margin-top: .25em;
+    }
+
+    .sub-menu ul li a {
+        padding: .7em .5em;
+        font-weight: 500;
+        opacity: .85;
+    }
+
+    .burger {
+        display: flex;
+    }
+}
+
 @media (max-width: 768px) {
     html, body {
         margin: 0;
@@ -483,56 +692,7 @@ input[type=submit]:hover {
      .container {
         padding-top: 1.6em;
         padding-bottom: 1.6em;
-    } 
-
-    .nav-list {
-        position: absolute;
-        right: 0;
-        top: 10vh;
-        width: 42vh;
-        height: 100vh;
-        display: block;
-        background: #062A60;
-        transform: translateX(100%);
-        transition: transform 0.5s ease-in;
-        padding-top: 3em;
     }
-
-
-    .my-type {
-        margin-bottom: 5em;
-        border-bottom: none;
-    }
-
-    .border:hover {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-    .my-border:hover {
-        border-bottom: none;
-    }
-
-    .border {
-        margin-bottom: 6em;
-    }
-
-    .my-border {
-        margin-top: 6em;
-    }
-
-    .sub-menu ul {
-        display: none;
-    }
-
-    a {
-        font-size: 1.1rem;
-        font-weight: normal;
-    }
-
-    a:hover {
-        font-weight: bold;
-    }
-
 
     /* 1.osa*/
 
@@ -614,7 +774,7 @@ input[type=submit]:hover {
     /* 4.osa */
 
     .first-table {
-        margin-left: 3em;
+        margin-left: 0;
         margin-bottom: 2em;
     }
 
@@ -624,11 +784,13 @@ input[type=submit]:hover {
         font-size: 1rem;
     }
 
-    .no-heading {
-        display: none;
-    }
+    .first-table,
     .second-table {
-        display: none;
+        min-width: 560px;
+    }
+
+    .table-scroll {
+        margin: 0 1.5em;
     }
 
     /* 5.osa */
@@ -644,17 +806,6 @@ input[type=submit]:hover {
     .grid-for-contact {
         max-width: 470px;
         padding: 3em 2.5em;
-    }
-
-    .nav-list li {
-        opacity: 0;
-    }
-
-    .burger {
-        display: block;
-        position: absolute;
-        right: 35px;
-        top: 35px;
     }
 
 }
@@ -720,7 +871,7 @@ input[type=submit]:hover {
 
 
 .toggle .line-1 {
-    transform: rotate(-45deg) translate(-5px, 7px);
+    transform: translateY(9px) rotate(45deg);
 }
 
 .toggle .line-2 {
@@ -728,5 +879,5 @@ input[type=submit]:hover {
 }
 
 .toggle .line-3 {
-    transform: rotate(45deg) translate(-5px, -7px);
+    transform: translateY(-9px) rotate(-45deg);
 }

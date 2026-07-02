@@ -1,52 +1,45 @@
 const navSlide = () => {
     const menu = document.querySelector('.burger');
     const nav = document.querySelector('.nav-list');
-    const navLinks = document.querySelectorAll('.nav-list li');
+    const navLinks = document.querySelectorAll('.nav-list > li');
+    const submenuParent = document.querySelector('.has-submenu');
+    const submenuToggle = document.querySelector('.submenu-toggle');
 
-    menu.addEventListener('click', ()=> {
-        nav.classList.toggle('nav-active');
+    const setMenuOpen = (open) => {
+        nav.classList.toggle('nav-active', open);
+        menu.classList.toggle('toggle', open);
+        menu.setAttribute('aria-expanded', open ? 'true' : 'false');
         navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.5}s`
-            }
+            link.style.animation = open
+                ? `navLinkFade 0.5s ease forwards ${index / 7 + 0.5}s`
+                : '';
         });
+        if (!open && submenuParent) {
+            submenuParent.classList.remove('submenu-open');
+            submenuToggle.setAttribute('aria-expanded', 'false');
+        }
+    };
 
-        menu.classList.toggle('toggle');
+    menu.addEventListener('click', () => {
+        setMenuOpen(!nav.classList.contains('nav-active'));
     });
-    
-}
 
+    document.querySelectorAll('.nav-list a').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('nav-active')) setMenuOpen(false);
+        });
+    });
 
-function pageContent() {
-    const text = document.querySelector('#my-id');
-
-    if (text.style.display === 'block') {
-        text.style.display = 'none'; 
-    } else {
-        text.style.display = 'block';
-    }
-
-} 
-
-
-function init() {
-    let query = window.matchMedia("(max-width: 768px)");
-    if (query.matches) {
-        document.querySelector('.home-page-text').style.display = 'block';
-    } else {
-        document.querySelector('.home-page-text').style.display = 'flex';
+    if (submenuToggle && submenuParent) {
+        submenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isOpen = submenuParent.classList.toggle('submenu-open');
+            submenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
     }
 }
-
-document.addEventListener('DOMContentLoaded', init)
-
-
-pageContent();
 
 navSlide();
-
 
 
 const tl = gsap.timeline({defaults: {duration: 1, ease: 'power1.out'}})

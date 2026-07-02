@@ -11,13 +11,19 @@
     <header id="Avaleht">
         <div class="container">
             <div class="nav-container">
-                <img class="logo" src="assets/logo.svg" alt="This the logo of my website">
+                <a class="logo-link" href="#Avaleht" aria-label="AU Raamat avaleht">
+                    <img class="logo" src="assets/logo.svg" alt="AU Raamat logo">
+                </a>
                 <nav>
-                    <ul class="nav-list">
+                    <ul class="nav-list" id="primary-nav">
                         <li class="type"><a class="my-type" href="#Avaleht">Avaleht</a></li>
                         <li class="type"><a class="border" href="#Ettevõttest">Ettevõttest</a></li>
-                        <li class="type"><a class="no-border" href="#Teenused">Teenused</a>
-                            <div class="sub-menu">
+                        <li class="type has-submenu">
+                            <a class="no-border" href="#Teenused">Teenused</a>
+                            <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="teenused-submenu" aria-label="Näita Teenused alammenüüd">
+                                <span class="chevron" aria-hidden="true"></span>
+                            </button>
+                            <div class="sub-menu" id="teenused-submenu">
                                 <ul>
                                     <li><a href="#Põhiteenuste hinnakiri">Põhiteenuste hinnakiri</a></li>
                                     <li><a href="#Lisateenuste hinnakiri">Lisateenuste hinnakiri</a></li>
@@ -26,15 +32,15 @@
                         </li>
                         <li class="type"><a class="my-border" href="#Kliendid meist">Kliendid meist</a></li>
                     </ul>
-                    <div class="burger" onclick="pageContent()">
+                    <button class="burger" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Ava menüü">
                         <div class="line-1"></div>
                         <div class="line-2"></div>
                         <div class="line-3"></div>
-                    </div>
+                    </button>
                 </nav>
             </div>
         </div>
-        <div class="home-page-text" id="my-id">
+        <div class="home-page-text">
             <div>
                 <h1 id="ani_1">Raamatupidamisteenus</h1>
                 <p class="home-page-bigger-parapraph" id="ani_2">Sul on mikro- või väikeettevõte, aga sa oled hädas raamatupidamisega.</p>
@@ -98,7 +104,8 @@
                     <p class="info">Fikseeritud kuutasu saab kokku leppida, kui on teada eeldatav kannete keskmine ühes kalendrikuus.</p>
                 </div>
             </div>
-            <table class="first-table"> 
+            <div class="table-scroll">
+            <table class="first-table">
                 <tr>
                     <th>Kannete/kirjete arv</th>
                     <th>EUR ühes kuus</th>
@@ -142,8 +149,9 @@
                 <tr>
                     <td class="final-cell">226-250</td>
                     <td class="final-cell">350</td>
-                </tr> 
+                </tr>
             </table>
+            </div>
             <div class="home-page-text para">
                 <div>
                     <p class="info small-heading">Raamatupidamise baasteenused on:</p>
@@ -160,7 +168,8 @@
             </div>
     </section>
     <section id="Lisateenuste hinnakiri">
-        <div class="heading no-heading">Lisateenuste hinnakiri</div>
+        <div class="heading">Lisateenuste hinnakiri</div>
+        <div class="table-scroll">
         <table class="second-table">
             <tr>
                 <th>Lisateenused</th>
@@ -238,6 +247,7 @@
                 <td class="final-cell excep">5</td>
             </tr>
         </table>
+        </div>
     </section>
     <section id="Kliendid meist">
         <div class="heading">Kliendid meist</div>
